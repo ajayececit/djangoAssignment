@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+    // var firstNameSort = function() {
+    //     window.location = 'http://localhost:8000/showusers/sortfirstname/1';
+    // }
+    // var lastNameSort = function() {
+    //     window.location = 'http://localhost:8000/showusers/sortfirstname/1';
+    // }
+    var deleteUser = function(){
+        var urlToCall = "http://localhost:8000/removeuser/"+document.getElementById("fname").value;
+        window.location = urlToCall;
+    }
+</script>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>USER Table</h2>
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>E-Mail</th>
+  </tr>
+  {% for i in users %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.firstName}}</td>
+        <td>{{i.lastName}}</td>
+        <td>{{i.email}}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<div class="pagination">
+    <a href={{firstAndLast.first}}>&laquo;</a>
+    {% for i in paginator %}
+        <a href={{i.link}}>{{forloop.counter}}</a>
+    {% endfor %}
+    <a href={{firstAndLast.last}}>&raquo;</a>
+</div>
+
+<form action="http://localhost:8000/showusers/sortfirstname/1">
+    <button>Sort By First Name</button>
+</form>
+
+<form action="http://localhost:8000/showusers/sortlastname/1">
+    <button>Sort By Last Name</button>
+</form>
+<form action="http://localhost:8000/showusers/user/1">
+    <button>User Table</button>
+</form>
+<input type="text" id="fname" name="Delete"><br><br>
+<button onclick="deleteUser()">Delete</button>
+
+
+</body>
+</html>
